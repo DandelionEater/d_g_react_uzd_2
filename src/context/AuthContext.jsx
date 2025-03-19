@@ -8,27 +8,16 @@ export const AuthProvider = ({ children }) => {
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return !!localStorage.getItem("user");
-  });
-
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      setUser(storedUser);
-      setIsAuthenticated(true);
-    }
-  }, []);
+  // isAuthenticated nustatomas tiesiogiai pagal user
+  const isAuthenticated = !!user;
 
   const login = (userData) => {
     setUser(userData);
-    setIsAuthenticated(true);
     localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
-    setIsAuthenticated(false);
     localStorage.removeItem("user");
   };
 
