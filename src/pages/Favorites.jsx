@@ -99,7 +99,7 @@ const Favorites = () => {
               <div className="col-md-4 mb-3 position-relative" key={recipe.id}>
                 <RecipeCard recipe={recipe} fromFavorites={true} />
                 <button
-                  className="btn btn-danger position-absolute bottom-0 end-0 m-2"
+                  className="btn btn-danger btn-sm position-absolute bottom-0 end-0 m-2"
                   style={{ zIndex: 10 }}
                   onClick={() => removeFavorite(recipe.id)}
                 >
