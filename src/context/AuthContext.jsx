@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-  // isAuthenticated nustatomas tiesiogiai pagal user
   const isAuthenticated = !!user;
 
   const login = (userData) => {
@@ -22,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );

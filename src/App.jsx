@@ -5,8 +5,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Navbar from "./components/Navbar";
+import Recipes from "./pages/Recipes";
+import RecipeDetail from "./pages/RecipeDetail";
+import Favorites from "./pages/Favorites";
 
 const App = () => (
   <AuthProvider>
@@ -16,10 +17,26 @@ const App = () => (
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
-          path="/dashboard"
+          path="/recipes"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <Recipes />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/recipes/:id"
+          element={
+            <ProtectedRoute>
+              <RecipeDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <ProtectedRoute>
+              <Favorites />
             </ProtectedRoute>
           }
         />

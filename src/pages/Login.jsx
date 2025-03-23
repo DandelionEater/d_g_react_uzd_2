@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const redirectTo = location.state?.from?.pathname || "/recipes";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,15 +23,14 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // Tikriname prisijungimo duomenis pagal username ir password
       const response = await fetch(
         `http://localhost:3000/users?username=${formData.username}&password=${formData.password}`
       );
       const users = await response.json();
 
       if (users.length > 0) {
-        login(users[0]); // Išsaugome naudotoją globaliai
-        navigate("/dashboard"); // Peradresuojame į dashboard
+        login(users[0]);
+        navigate(redirectTo);
       } else {
         setError("Invalid username or password!");
       }

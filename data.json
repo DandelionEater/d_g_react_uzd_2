@@ -4,13 +4,25 @@
       "id": "9f6d",
       "username": "admin",
       "email": "admin@admin.com",
-      "password": "admin"
+      "password": "admin",
+      "favoriteRecipes": [
+        1,
+        30,
+        3,
+        20
+      ]
     },
     {
-      "id": "caff",
+      "id": "fd4d",
       "username": "test",
       "email": "test@test.com",
-      "password": "test"
+      "password": "test",
+      "favoriteRecipes": [
+        18,
+        8,
+        22,
+        4
+      ]
     }
   ]
 }

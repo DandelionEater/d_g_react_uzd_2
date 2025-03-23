@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 
 const Register = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
   const [formData, setFormData] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const redirectTo = location.state?.from?.pathname || "/recipes";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,46 +21,48 @@ const Register = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
-
+  
     try {
-      // Tikriname, ar username arba email jau egzistuoja
       const userCheckResponse = await fetch(`http://localhost:3000/users?username=${formData.username}`);
       const existingUsers = await userCheckResponse.json();
-
+  
       const emailCheckResponse = await fetch(`http://localhost:3000/users?email=${formData.email}`);
       const existingEmails = await emailCheckResponse.json();
-
+  
       if (existingUsers.length > 0) {
         setError("Username already taken!");
         setLoading(false);
         return;
       }
-
+  
       if (existingEmails.length > 0) {
         setError("Email already registered!");
         setLoading(false);
         return;
       }
-
-      // Jei vartotojo nėra, įrašome naują
+  
+      formData.favoriteRecipes = [];
+  
       const response = await fetch("http://localhost:3000/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
       });
-
+  
       if (response.ok) {
-        login(formData); // Automatiškai prisijungiame
-        navigate("/dashboard"); // Peradresuojame į Dashboard
+        const newUser = await response.json();
+        login(newUser);
+        navigate(redirectTo);
       } else {
         setError("Failed to register. Please try again.");
       }
     } catch (err) {
       setError("Server error. Please try again later.");
     }
-
+  
     setLoading(false);
   };
+  
 
   return (
     <div>
