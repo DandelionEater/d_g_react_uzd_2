@@ -7,19 +7,19 @@
       "password": "admin",
       "favoriteRecipes": [
         3,
-        5
+        1,
+        12,
+        19
       ]
     },
     {
-      "id": "fd4d",
+      "id": "e41a",
       "username": "test",
       "email": "test@test.com",
       "password": "test",
       "favoriteRecipes": [
-        18,
-        8,
-        22,
-        4
+        3,
+        18
       ]
     }
   ]
